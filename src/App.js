@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+// props - object
+//props = {name: 'Evgeniy'}
 
-function App() {
+/*
+так тоже работает
+function App({ name }) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        My first React App
+        <h3>Hello, {name}</h3>
       </header>
     </div>
   );
 }
+*/
 
-export default App;
+function Message(props) {
+  return (
+    <div className="App">
+      <header
+        className={`App-header ${props.showRed ? 'header-red' : 'header-blue'}`}
+        style={{ top: props.topPosition || '10px' }}
+      >
+        My first React App
+        <h3>Hello, {props.name}</h3>
+      </header>
+    </div>
+
+    /*
+    <div className="App">
+      <header className="App-header">
+        My first React App
+        <h3>Hello, {props.name}</h3>
+      </header>
+    </div>
+*/
+    // <div style={{ paddingTop: '25px', backgroundColor: 'red' }}>
+    //   Hello world
+    // </div>
+  );
+}
+
+export default Message;
