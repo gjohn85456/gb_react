@@ -1,6 +1,6 @@
-.App {
-  text-align: center;
-}
+// .App {
+//   text-align: center;
+// }
 
 .App-logo {
   height: 40vmin;
@@ -43,4 +43,40 @@
 
 .header-blue {
   background-color: blue;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  border-radius: 10px;
+  // max-width: 1140px;
+  // margin: 0 auto;
+  align-items: center;
+}
+
+.messages_space {
+  min-width: 350px;
+  height: 450px;
+  background-color: #61dafb;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.messages_human {
+  text-align: right;
+  padding: 10px;
+}
+
+.messages_robot {
+  text-align: left;
+  padding: 10px;
+}
+.messages_toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 350px;
+  
 }
