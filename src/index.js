@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
-const myName = 'Evgeniy';
+import Routers from './pages/Routers'
+import { BrowserRouter } from "react-router-dom"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App name={myName} topPosition={'100px'} />
+    <BrowserRouter>
+      {/* <Routers render={(name) => <b className={name}>My parent</b>} /> */}
+      <Routers />
+    </BrowserRouter>
+    {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -5,10 +5,12 @@ import SendIcon from '@mui/icons-material/Send';
 import UnstyledInput from './mu_input';
 
 import './App.scss';
+import MessageList from './components/MessageList';
 
-function App(props) {
+function App() {
   const [messages, setMessage] = useState([]);
   const [input, setInput] = useState({});
+
 
   useEffect(() => {
     let timer;
@@ -43,6 +45,7 @@ function App(props) {
     //   arr.push(test);
     //   return preMessage = arr.slice();
     // })
+
   }
   const f = (e) => {
     setInput({ text: e.target.value, author: "human" })
@@ -51,13 +54,14 @@ function App(props) {
   return (
     <div className="App">
       <div className='container'>
-        <div className='messages_space'>
+        <MessageList messages={messages} />
+        {/* <div className='messages_space'>
           {messages.map((message, id) => (
             <div className={`messages_${message.author === 'human' ? 'human' : 'robot'}`} key={message.id}>
               {message.text} - say: {message.author}
             </div>
           ))}
-        </div>
+        </div> */}
         <div className='messages_toolbar'>
           <div>
             <UnstyledInput myEvent={f}></UnstyledInput>

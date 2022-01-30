@@ -54,5 +54,5 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
 });
 
 export default function UnstyledInput(props) {
-  return <CustomInput aria-label="Demo input" placeholder="Type something..." onChange={props.myEvent} />;
+  return <CustomInput autoFocus={true} aria-label="Demo input" placeholder="Type something..." onChange={props.myEvent} />;
 }

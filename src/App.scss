@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -56,12 +57,12 @@
 }
 
 .messages_space {
-  min-width: 350px;
+  width: 350px;
   height: 450px;
   background-color: #61dafb;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .messages_human {
@@ -73,10 +74,19 @@
   text-align: left;
   padding: 10px;
 }
+
 .messages_toolbar {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
   width: 350px;
-  
+}
+
+.chats {
+  display: flex;
+  align-items: flex-start;
+
+  .chatList {
+    width: 100px;
+  }
 }

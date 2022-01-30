@@ -80,7 +80,7 @@
 }
 
 .messages_space {
-  min-width: 350px;
+  width: 350px;
   height: 450px;
   background-color: #61dafb;
   display: -webkit-box;
@@ -90,7 +90,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .messages_human {
@@ -112,5 +112,18 @@
           justify-content: space-between;
   margin-top: 10px;
   width: 350px;
+}
+
+.chats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.chats .chatList {
+  width: 100px;
 }
 /*# sourceMappingURL=App.css.map */
