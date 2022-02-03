@@ -85,8 +85,19 @@
 .chats {
   display: flex;
   align-items: flex-start;
+}
 
-  .chatList {
-    width: 100px;
+.chatList {
+  width: 100px;
+  display: block;
+
+  a {
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
