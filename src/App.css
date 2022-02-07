@@ -123,7 +123,27 @@
           align-items: flex-start;
 }
 
-.chats .chatList {
-  width: 100px;
+.chatList {
+  width: 150px;
+  display: block;
+}
+
+.chatList a {
+  display: block;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.chatList a:last-child {
+  border-bottom: none;
+}
+
+.chatNameBox {
+  padding: 20px;
+  display: block;
+}
+
+.chatNameBox button {
+  display: block;
 }
 /*# sourceMappingURL=App.css.map */
