@@ -53,7 +53,6 @@ const chatsReducer = (state = initialState, action) => {
             return state
         }
         case UPDATE_CHAT: {
-            console.log(state);
             console.log(action);
         }
         default:

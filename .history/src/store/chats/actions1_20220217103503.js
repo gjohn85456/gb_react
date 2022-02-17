@@ -1,0 +1,4 @@
+export const FB_ADD_CHAT = "CHATS::FB_ADD_CHAT";
+export const FB_DELETE_CHAT = "CHATS::FB_DELETE_CHAT";
+export const FB_UPDATE_CHAT = "CHATS::FB_UPDATE_CHAT";
+

@@ -52,10 +52,7 @@ const chatsReducer = (state = initialState, action) => {
             state.chatList = state.chatList.filter((f) => f.name !== action.name);
             return state
         }
-        case UPDATE_CHAT: {
-            console.log(state);
-            console.log(action);
-        }
+        case         
         default:
             return state
     }

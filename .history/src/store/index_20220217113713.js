@@ -24,7 +24,7 @@ const persistConfig = {
 */
 const allReducers = combineReducers({
     chats: chatsReducer,
-    fbChats: fbChatsReducer,
+    chats1: fbChatsReducer,
     profile: profileReducer,
     messages: messagesReducer,
     gists: gistsReducer

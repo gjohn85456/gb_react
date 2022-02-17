@@ -8,17 +8,13 @@ import { addChat, delChat } from '../store/chats/actions'
 import { delChatMessages } from '../store/messages/actions'
 import { getDatabase, ref, set, push, get, child, remove } from 'firebase/database'
 import firebase from "../service/firebase";
-import { connactionFirebase } from '../store/middleware'
+import { initTrackerWithFB } from '../store/middleware'
 import { chatListUpdate } from '../store/chats/actions'
-import { fbUpDateChat } from "../store/chats/actions1";
 
 const ChatList = () => {
     /*lesson9 не получаем чаты из redux
     const chats = useSelector(state => state.chats.chatList);
     */
-    const dispatch = useDispatch();
-
-    const fbChats = useSelector(state => state.fbChats);
     const message = useSelector(state => state.messages);
     const [chats, setChats] = useState([]);
     const { chatId } = useParams();
@@ -26,6 +22,9 @@ const ChatList = () => {
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [newChatName, setNewChatName] = useState('');
     const [delChatName, setDelChatName] = useState('');
+    const dispatch = useDispatch();
+
+
 
 
     const handleOpen = () => {
@@ -79,9 +78,8 @@ const ChatList = () => {
             e.preventDefault();
         }
         if (e.keyCode === 32) {
-            console.log(fbChats);
-            console.log('hello');
-            //console.log(message);
+            console.log(chats);
+            console.log(message);
         }
     }
 
@@ -94,9 +92,9 @@ const ChatList = () => {
 
     };
 
-    useEffect(() => {
-        dispatch(connactionFirebase())
-    }, []);
+    // useEffect(() => {
+    //     setChats
+    // }, [])
 
     // useEffect(() => {
     //     const db = getDatabase(firebase);
@@ -113,7 +111,7 @@ const ChatList = () => {
     //         }
 
     //     });
-    // }, []);
+    // }, [])
 
     return (
         <div className="chatList">

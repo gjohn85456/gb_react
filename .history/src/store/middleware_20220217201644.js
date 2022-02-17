@@ -1,9 +1,8 @@
 import { API_URL_PUBLIC } from "../contants/endpoints";
 import { getGistsFailure, getGistsRequest, getGistsSuccess } from "./gists/actions";
 import { chatListUpdate } from "./chats/actions"
-import { getDatabase, ref, get, child, push, set, onValue } from 'firebase/database'
-import firebase from '../service/firebase';
-import { fbUpDateChat } from './chats/actions1'
+import { getDatabase, ref, get, child, push, set } from 'firebase/database'
+import firebase from '../../service/firebase';
 
 export const getALLGists = () => async (dispatch) => {
     dispatch(getGistsRequest());
@@ -19,6 +18,7 @@ export const getALLGists = () => async (dispatch) => {
     }
 }
 
+
 export const connactionFirebase = () => async (dispatch) => {
     const db = getDatabase(firebase);
     const dbRef = ref(db);
@@ -26,7 +26,7 @@ export const connactionFirebase = () => async (dispatch) => {
         if (snapshot.val()) {
             const obj = snapshot.val();
             const chatIds = Object.keys(obj);
-            const chatArr = chatIds.map(item => ({ id: item, name: obj[item].name }));
+            chatArr = chatIds.map(item => ({ id: item, name: obj[item].name }));
             console.log(chatArr);
             dispatch(fbUpDateChat(chatArr));
         } else {
@@ -35,7 +35,7 @@ export const connactionFirebase = () => async (dispatch) => {
     });
 }
 
-/* Обновление, следующий этап
+
 export const initTrackerWithFB = () => async (dispatch) => {
     const db = getDatabase();
     const chatRef = ref(db, '/chats/');
@@ -47,9 +47,6 @@ export const initTrackerWithFB = () => async (dispatch) => {
         dispatch(chatListUpdate(chatArr));
     });
 }
-*/
-
-
 //Lesson 7
 // import { addMessage, ADD_MESSAGE } from "./messages/actions";
 

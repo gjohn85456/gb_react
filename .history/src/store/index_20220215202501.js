@@ -10,7 +10,6 @@ import gistsReducer from "./gists/reducer";
 import middleware from './middleware'
 import mySaga from "./sagas";
 import thunk from 'redux-thunk'
-import fbChatsReducer from './chats/reducer1'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
@@ -24,7 +23,6 @@ const persistConfig = {
 */
 const allReducers = combineReducers({
     chats: chatsReducer,
-    fbChats: fbChatsReducer,
     profile: profileReducer,
     messages: messagesReducer,
     gists: gistsReducer

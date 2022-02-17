@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
 import firebase from '../service/firebase';
 
-let AuthContext = React.createContext(null);
+let AuthContext = React.createContext(null)
 
 export function AuthProvider({ children }) {
     let [user, setUser] = useState();
