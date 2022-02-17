@@ -8,7 +8,7 @@ import { addChat, delChat } from '../store/chats/actions'
 import { delChatMessages } from '../store/messages/actions'
 import { getDatabase, ref, set, push, get, child, remove } from 'firebase/database'
 import firebase from "../service/firebase";
-import { connactionFirebase } from '../store/middleware'
+import { initTrackerWithFB } from '../store/middleware'
 import { chatListUpdate } from '../store/chats/actions'
 import { fbUpDateChat } from "../store/chats/actions1";
 
@@ -94,9 +94,9 @@ const ChatList = () => {
 
     };
 
-    useEffect(() => {
-        dispatch(connactionFirebase())
-    }, []);
+    // useEffect(() => {
+    //     setChats
+    // }, [])
 
     // useEffect(() => {
     //     const db = getDatabase(firebase);

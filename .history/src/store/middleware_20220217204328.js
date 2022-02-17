@@ -35,7 +35,7 @@ export const connactionFirebase = () => async (dispatch) => {
     });
 }
 
-/* Обновление, следующий этап
+/* Обновление , следующий этап
 export const initTrackerWithFB = () => async (dispatch) => {
     const db = getDatabase();
     const chatRef = ref(db, '/chats/');

@@ -95,8 +95,8 @@ const ChatList = () => {
     };
 
     useEffect(() => {
-        dispatch(connactionFirebase())
-    }, []);
+        dispatch()
+    }, [])
 
     // useEffect(() => {
     //     const db = getDatabase(firebase);

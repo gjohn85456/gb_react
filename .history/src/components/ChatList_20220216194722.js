@@ -8,17 +8,12 @@ import { addChat, delChat } from '../store/chats/actions'
 import { delChatMessages } from '../store/messages/actions'
 import { getDatabase, ref, set, push, get, child, remove } from 'firebase/database'
 import firebase from "../service/firebase";
-import { connactionFirebase } from '../store/middleware'
-import { chatListUpdate } from '../store/chats/actions'
-import { fbUpDateChat } from "../store/chats/actions1";
+import { initTrackerWithFB } from '../store/middleware'
 
 const ChatList = () => {
     /*lesson9 не получаем чаты из redux
     const chats = useSelector(state => state.chats.chatList);
     */
-    const dispatch = useDispatch();
-
-    const fbChats = useSelector(state => state.fbChats);
     const message = useSelector(state => state.messages);
     const [chats, setChats] = useState([]);
     const { chatId } = useParams();
@@ -26,7 +21,7 @@ const ChatList = () => {
     const [visibleDelete, setVisibleDelete] = useState(false);
     const [newChatName, setNewChatName] = useState('');
     const [delChatName, setDelChatName] = useState('');
-
+    const dispatch = useDispatch();
 
     const handleOpen = () => {
         setVisible(true);
@@ -55,9 +50,7 @@ const ChatList = () => {
         const chatRef = ref(db, '/chats');
         const newChatRef = push(chatRef);
         set(newChatRef, { name: newChatName }).then((res) => { console.log(res) });
-        /* обновление чата
-        dispatch(initTrackerWithFB(chatListUpdate));
-        */
+        dispatch()
         setNewChatName('');
         handleClose();
     }
@@ -79,9 +72,8 @@ const ChatList = () => {
             e.preventDefault();
         }
         if (e.keyCode === 32) {
-            console.log(fbChats);
-            console.log('hello');
-            //console.log(message);
+            console.log(chats);
+            console.log(message);
         }
     }
 
@@ -93,27 +85,21 @@ const ChatList = () => {
         remove(messagesRef).then(res => console.log('removed msg', res));
 
     };
-
     useEffect(() => {
-        dispatch(connactionFirebase())
-    }, []);
+        const db = getDatabase(firebase);
+        const dbRef = ref(db);
+        get(child(dbRef, '/chats')).then((snapshot) => {
+            if (snapshot.val()) {
+                const obj = snapshot.val();
+                const chatIds = Object.keys(obj);
+                const chatArr = chatIds.map(item => ({ id: item, name: obj[item].name }));
+                setChats(chatArr);
+            } else {
+                console.log('нет данных');
+            }
 
-    // useEffect(() => {
-    //     const db = getDatabase(firebase);
-    //     const dbRef = ref(db);
-    //     get(child(dbRef, '/chats')).then((snapshot) => {
-    //         if (snapshot.val()) {
-    //             const obj = snapshot.val();
-    //             const chatIds = Object.keys(obj);
-    //             const chatArr = chatIds.map(item => ({ id: item, name: obj[item].name }));
-    //             console.log(chatArr);
-    //             setChats(chatArr);
-    //         } else {
-    //             console.log('нет данных');
-    //         }
-
-    //     });
-    // }, []);
+        });
+    }, [])
 
     return (
         <div className="chatList">

@@ -13,7 +13,6 @@ export const delChat = (name) => ({
 });
 
 export const chatListUpdate = (chatArr) => ({
-    type: UPDATE_CHAT,
-    chatArr
+    type: 
 })
 

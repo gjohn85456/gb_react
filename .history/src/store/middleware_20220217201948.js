@@ -35,7 +35,7 @@ export const connactionFirebase = () => async (dispatch) => {
     });
 }
 
-/* Обновление, следующий этап
+
 export const initTrackerWithFB = () => async (dispatch) => {
     const db = getDatabase();
     const chatRef = ref(db, '/chats/');
@@ -47,9 +47,6 @@ export const initTrackerWithFB = () => async (dispatch) => {
         dispatch(chatListUpdate(chatArr));
     });
 }
-*/
-
-
 //Lesson 7
 // import { addMessage, ADD_MESSAGE } from "./messages/actions";
 
