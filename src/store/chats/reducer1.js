@@ -1,50 +1,27 @@
-import { FB_ADD_CHAT, FB_DELETE_CHAT, FB_UPDATE_CHAT } from './actions1'
+import { FB_ADD_CHAT, FB_DELETE_CHAT, FB_GET_CHAT } from './actions1'
 import firebase from '../../service/firebase';
-import { getDatabase, ref, get, child, push, set } from 'firebase/database'
+import { getDatabase, ref, push, set, remove, get, child } from 'firebase/database'
+
 
 let data = [];
 
-// function connectToFirebase() {
-//     const db = getDatabase(firebase);
-//     const dbRef = ref(db);
-//     let chatArr = [];
-//     get(child(dbRef, '/chats')).then((snapshot) => {
-//         if (snapshot.val()) {
-//             const obj = snapshot.val();
-//             const chatIds = Object.keys(obj);
-//             chatArr = chatIds.map(item => ({ id: item, name: obj[item].name }));
-//             console.log(chatArr);
-//             initialState(chatArr);
-//         } else {
-//             console.log('нет данных');
-//         }
-//     });
-
-// }
-
-// const initialState = (d) => {
-//     console.log(d);
-//     data = d;
-// }
-// connectToFirebase();
-
 
 const fbChatsReducer = (state = data, action) => {
-
-    console.log(state);
     const db = getDatabase(firebase);
     switch (action.type) {
-        case FB_UPDATE_CHAT: {
-            console.log(action.data);
+        case FB_GET_CHAT: {
+            return action.data
         }
         case FB_ADD_CHAT: {
             const chatRef = ref(db, '/chats');
             const newChatRef = push(chatRef);
             set(newChatRef, { name: action.name });
-            console.log(' мы пробуем добавить чат FB_ADD_CHAT');
         }
         case FB_DELETE_CHAT: {
-            console.log(' мы пробуем удалить чат FB_DELETE_CHAT');
+            const chatRef = ref(db, `/chats/${action.id}`);
+            const messagesRef = ref(db, `/messages/${action.id}`);
+            remove(chatRef).then(res => console.log('remove chat', res));
+            remove(messagesRef).then(res => console.log('removed msg', res));
         }
         default:
             return state
