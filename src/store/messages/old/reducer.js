@@ -1,5 +1,5 @@
 import { Satellite } from "@mui/icons-material";
-import { ADD_MESSAGE, DELETE_CHAT_MESSAGES } from "./actions";
+import { ADD_MESSAGE, DELETE_CHAT_MESSAGES } from './actions';
 
 
 const initialState = {

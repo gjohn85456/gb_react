@@ -3,7 +3,7 @@ import { Box, Paper, TextField, Button, Typography } from '@mui/material'
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 
-import { getDataFromFireBase } from '../store/middleware'
+import { getDataFromFB, initTrackerWithFB } from '../store/middleware'
 import useAuth from '../hook/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom'
 const Login = () => {
@@ -29,7 +29,8 @@ const Login = () => {
         e.preventDefault();
         await auth.signin({ email, password }, () => {
             navigate(from, { replace: true });
-            dispatch(getDataFromFireBase());
+            dispatch(getDataFromFB());
+            dispatch(initTrackerWithFB());
         })
 
     }
@@ -57,6 +58,7 @@ const Login = () => {
                     name={'email'}
                     value={email}
                     onChange={handleEmailChange}
+                    autoFocus
                 />
                 <br />
                 <TextField

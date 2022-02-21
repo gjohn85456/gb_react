@@ -4,13 +4,12 @@ import { Button, Dialog, DialogTitle, TextField } from '@mui/material';
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getDataFromFireBase } from '../store/middleware'
-import { fbDeleteChat, fbAddChat } from "../store/chats/actions1";
+import { addChatFB, delChatFB } from '../store/middleware'
+
 
 const ChatList = () => {
     const dispatch = useDispatch();
-    let fbChats = useSelector(state => state.fbChats);;
-    const message = useSelector(state => state.messages);
+    let fbChats = useSelector(state => state.fbChats);
     const [chats, setChats] = useState([]);
     const { chatId } = useParams();
     const [visible, setVisible] = useState(false);
@@ -28,8 +27,7 @@ const ChatList = () => {
     const handleChange = (e) => setNewChatName(e.target.value);
 
     const onAddChat = () => {
-        dispatch(fbAddChat(newChatName));
-        dispatch(getDataFromFireBase());
+        dispatch(addChatFB(newChatName));
         setNewChatName('');
         handleClose();
     }
@@ -40,15 +38,13 @@ const ChatList = () => {
             e.preventDefault();
         }
         if (e.keyCode === 32) {
-            console.log(fbChats);
             console.log('hello');
-            //console.log(message);
         }
     }
 
-    const handlerDelete = (id) => {
-        dispatch(fbDeleteChat(id));
-        dispatch(getDataFromFireBase());
+    const handlerDelete = (idDelChat) => {
+        dispatch(delChatFB(idDelChat));
+        // dispatch(getDataFromFB());
     };
 
     useEffect(() => {

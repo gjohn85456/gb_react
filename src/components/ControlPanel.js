@@ -2,15 +2,14 @@ import { Box, Fab, TextField } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Person, Send } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, addMessageSaga } from '../store/messages/actions';
+import { addMessage, addMessageSaga } from '../store/messages/old/actions';
 import { useParams } from 'react-router-dom'
-import { getDatabase, ref, push, set } from 'firebase/database'
-import firebase from '../service/firebase';
+import { addMsgFB } from '../store/middleware';
 
 
 const ControlPanel = () => {
     const [value, setValue] = useState('');
-    // const messages = useSelector(state => state.messages.messageList);
+    //const fbMessages = useSelector(state => state.fbMessages);
     const profileName = useSelector(state => state.profile.name);
     const dispatch = useDispatch();
     const { chatId } = useParams();
@@ -55,18 +54,36 @@ const ControlPanel = () => {
     //     };
     // }, [messages[chatId]]);
 
-
-    const handleButton = useCallback(() => {
+    const handleButton = () => {
         const message = {
             text: value,
             author: profileName
         };
-        const db = getDatabase(firebase);
-        const messageRef = ref(db, `/messages/${chatId}`);
-        const newMessageRef = push(messageRef);
-        set(newMessageRef, message).then((res) => console.log(res));
+        if (!chatId) {
+            setValue('');
+            return console.log('не выбран чат');
+        }
+        dispatch(addMsgFB(chatId, message));
         setValue('');
-    }, [value, chatId]);
+    }
+
+    // const handleButton = useCallback(() => {
+    //     const message = {
+    //         text: value,
+    //         author: profileName
+    //     };
+    //     const db = getDatabase(firebase);
+    //     if (!chatId) {
+    //         setValue('');
+    //         return console.log('не выбран чат');
+    //     }
+    //     const messageRef = ref(db, `/messages/${chatId}`);
+    //     console.log(messageRef);
+    //     console.log(message);
+    //     const newMessageRef = push(messageRef);
+    //     set(newMessageRef, message).then((res) => console.log(res));
+    //     setValue('');
+    // }, [value, chatId]);
 
 
     const pressEnter = (e) => {

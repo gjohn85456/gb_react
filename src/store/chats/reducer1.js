@@ -1,29 +1,27 @@
-import { FB_ADD_CHAT, FB_DELETE_CHAT, FB_GET_CHAT } from './actions1'
-import firebase from '../../service/firebase';
-import { getDatabase, ref, push, set, remove, get, child } from 'firebase/database'
+import { FB_GET_CHAT, FB_UPDATE_CHATS } from './actions1'
 
+// const initialState = {
+//     chats: [],
+//     messageList: []
+// };
 
-let data = [];
-
+const data = [];
 
 const fbChatsReducer = (state = data, action) => {
-    const db = getDatabase(firebase);
+
     switch (action.type) {
         case FB_GET_CHAT: {
-            return action.data
+            console.log('мы тут FB_GET_CHAT');
+            state = action.data;
+            return state;
         }
-        case FB_ADD_CHAT: {
-            const chatRef = ref(db, '/chats');
-            const newChatRef = push(chatRef);
-            set(newChatRef, { name: action.name });
-        }
-        case FB_DELETE_CHAT: {
-            const chatRef = ref(db, `/chats/${action.id}`);
-            const messagesRef = ref(db, `/messages/${action.id}`);
-            remove(chatRef).then(res => console.log('remove chat', res));
-            remove(messagesRef).then(res => console.log('removed msg', res));
+        case FB_UPDATE_CHATS: {
+            console.log('мы тут FB_UPDATE_CHATS');
+            state = action.data;
+            return state
         }
         default:
+            console.log('мы тут default');
             return state
     }
 }

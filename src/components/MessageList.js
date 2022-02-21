@@ -3,13 +3,17 @@ import { useCallback } from 'react'
 import PropTypes from 'prop-types';
 import { List, ListItem, ListItemText, Box, ListItemAvatar, Avatar } from '@mui/material'
 import { Adb, Face, Person } from '@mui/icons-material';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { pres_RenderMessage } from '../presentaiol_components/pres_RenderMessage'
 import { getDatabase, get, ref, child } from 'firebase/database'
 import firebase from '../service/firebase';
+import { initTrackerWithFBMessage } from '../store/middleware';
+import { fbUpDateMessage } from '../store/messages/actions1';
 
 const MessageList = () => {
+    const fbMessages = useSelector(state => state.fbMessages);
+    const dispatch = useDispatch();
     const [messages, setMessages] = useState([]);
     const profileName = useSelector(state => state.profile.name);
     //const messages = useSelector(state => state.messages.messageList);
@@ -18,17 +22,29 @@ const MessageList = () => {
 
     useEffect(() => {
         const db = getDatabase(firebase);
-        const dbRef = ref(db)
+        const dbRef = ref(db);
+        dispatch(initTrackerWithFBMessage(chatId));
+        console.log(chatId);
         get(child(dbRef, `/messages/${chatId}`))
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const msg = Object.values(snapshot.val());
                     setMessages(msg);
+                    console.log(msg);
+
                 } else {
-                    console.error('Ошибка однако');
+                    console.log(snapshot);
+                    console.error('Ошибка получения сообщений');
                 }
             });
     }, [chatId]);
+
+    // useEffect(() => {
+    //     console.log('РАБОТАЕТ');
+    //     setMessages(fbMessages);
+    // }, [fbMessages]);
+
+
 
     const renderMessage = useCallback((message, index) => {
         return (
