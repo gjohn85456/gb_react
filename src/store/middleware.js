@@ -2,8 +2,8 @@ import { API_URL_PUBLIC } from "../contants/endpoints";
 import { getGistsFailure, getGistsRequest, getGistsSuccess } from "./gists/actions";
 import { getDatabase, ref, get, child, push, set, onValue, remove } from 'firebase/database'
 import firebase from '../service/firebase';
-import { fbGetChat, fbListChatsUpdate, } from './chats/actions1'
-import { fbUpDateMessage } from "./messages/actions1";
+import { fbGetChat, fbListChatsUpdate, } from './chats/actions'
+import { fbUpDateMessage } from "./messages/actions";
 
 export const getALLGists = () => async (dispatch) => {
     dispatch(getGistsRequest());
@@ -39,13 +39,13 @@ export const getDataFromFB = () => async (dispatch) => {
 export const initTrackerWithFB = () => async (dispatch) => {
     const db = getDatabase();
     const chatRef = ref(db, '/chats/');
+
     onValue(chatRef, (snapshot) => {
+        console.log('Чат onValue');
         const data = snapshot.val();
-        console.log(data);
         if (!data) return dispatch(fbListChatsUpdate([]));
         const chatIds = Object.keys(data);
         const chatArr = chatIds.map(item => ({ id: item, name: data[item].name }));
-        console.log(chatArr);
         dispatch(fbListChatsUpdate(chatArr));
     });
 }
@@ -55,9 +55,8 @@ export const initTrackerWithFBMessage = (chatId) => async (dispatch) => {
     const chatRef = ref(db, `/messages/${chatId}`);
     onValue(chatRef, (snapshot) => {
         const data = snapshot.val();
-        if (!data) return dispatch(fbListChatsUpdate([]));
+        if (!data) return dispatch(fbUpDateMessage([]));
         const messagesList = Object.values(data);
-        console.log(messagesList);
         dispatch(fbUpDateMessage(messagesList));
     });
 }

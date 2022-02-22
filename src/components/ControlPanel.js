@@ -2,14 +2,12 @@ import { Box, Fab, TextField } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Person, Send } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, addMessageSaga } from '../store/messages/old/actions';
 import { useParams } from 'react-router-dom'
 import { addMsgFB } from '../store/middleware';
 
 
 const ControlPanel = () => {
     const [value, setValue] = useState('');
-    //const fbMessages = useSelector(state => state.fbMessages);
     const profileName = useSelector(state => state.profile.name);
     const dispatch = useDispatch();
     const { chatId } = useParams();
@@ -66,24 +64,6 @@ const ControlPanel = () => {
         dispatch(addMsgFB(chatId, message));
         setValue('');
     }
-
-    // const handleButton = useCallback(() => {
-    //     const message = {
-    //         text: value,
-    //         author: profileName
-    //     };
-    //     const db = getDatabase(firebase);
-    //     if (!chatId) {
-    //         setValue('');
-    //         return console.log('не выбран чат');
-    //     }
-    //     const messageRef = ref(db, `/messages/${chatId}`);
-    //     console.log(messageRef);
-    //     console.log(message);
-    //     const newMessageRef = push(messageRef);
-    //     set(newMessageRef, message).then((res) => console.log(res));
-    //     setValue('');
-    // }, [value, chatId]);
 
 
     const pressEnter = (e) => {

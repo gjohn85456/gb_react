@@ -44,11 +44,9 @@ const ChatList = () => {
 
     const handlerDelete = (idDelChat) => {
         dispatch(delChatFB(idDelChat));
-        // dispatch(getDataFromFB());
     };
 
     useEffect(() => {
-        console.log(fbChats);
         setChats(fbChats);
     }, [fbChats]);
 

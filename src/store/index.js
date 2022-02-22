@@ -11,8 +11,8 @@ import { middleware, initTrackerWithFB, getDataFromFB } from './middleware'
 import mySaga from "./sagas";
 import thunk from 'redux-thunk'
 
-import fbChatsReducer from './chats/reducer1'
-import fbMessagesReduser from "./messages/reducer1";
+import fbChatsReducer from './chats/reducer'
+import fbMessagesReduser from "./messages/reducer";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
