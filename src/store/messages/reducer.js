@@ -1,46 +1,13 @@
-import { Satellite } from "@mui/icons-material";
-import { ADD_MESSAGE, DELETE_CHAT_MESSAGES } from "./actions";
+import { FB_UPDATE_MESSAGE } from './actions';
 
+const data = [];
 
-const initialState = {
-    messageList: {}
-}
-
-/**
- * 
- * chatIdType = {
- *      id:string,
- *      text: string,
- *      author: string
- * }
- *  messageList: {
- *      [chatId]: chatIdType[]       
- * }
- */
-
-const messagesReduser = (state = initialState, action) => {
+const fbMessagesReduser = (state = data, action) => {
     switch (action.type) {
-        case ADD_MESSAGE: {
-            const currentList = state.messageList[action.chatId] || [];
-
-            return {
-                ...state,
-                messageList: {
-                    ...state.messageList,
-                    [action.chatId]: [
-                        ...currentList,
-                        {
-                            ...action.message,
-                            id: `${action.chatId}${currentList.length}`
-                        }
-                    ]
-
-                }
-
-            }
-        }
-        case DELETE_CHAT_MESSAGES: {
-            delete state.messageList[action.chatId.id]
+        case FB_UPDATE_MESSAGE: {
+            console.log('FB_UPDATE_MESSAGE');
+            console.log(action.messageList);
+            state = action.messageList;
             return state
         }
         default:
@@ -48,4 +15,4 @@ const messagesReduser = (state = initialState, action) => {
     }
 }
 
-export default messagesReduser;
+export default fbMessagesReduser;

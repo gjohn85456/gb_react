@@ -1,5 +1,5 @@
 import { delay, put, takeLatest } from 'redux-saga/effects'
-import { addMessage, ADD_MESSAGE_WITH_SAGA } from './messages/actions'
+import { addMessage, ADD_MESSAGE_WITH_SAGA } from './messages/old/actions'
 
 
 function* onAddMessageWithSaga(action) {

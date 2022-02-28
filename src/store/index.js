@@ -4,13 +4,16 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from 'redux-persist'
 
 import profileReducer from "./profile/profileReducer";
-import chatsReducer from "./chats/reducer"
-import messagesReducer from "./messages/reducer";
+
+
 import gistsReducer from "./gists/reducer";
-import middleware from './middleware'
+import { middleware, initTrackerWithFB, getDataFromFB } from './middleware'
 import mySaga from "./sagas";
 import thunk from 'redux-thunk'
-import fbChatsReducer from './chats/reducer1'
+
+import fbChatsReducer from './chats/reducer'
+import fbMessagesReduser from "./messages/reducer";
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
@@ -23,10 +26,9 @@ const persistConfig = {
 }
 */
 const allReducers = combineReducers({
-    chats: chatsReducer,
     fbChats: fbChatsReducer,
+    fbMessages: fbMessagesReduser,
     profile: profileReducer,
-    messages: messagesReducer,
     gists: gistsReducer
 });
 
@@ -47,6 +49,9 @@ const persistedReducer = persistReducer(persistConfig, allReducers);
 
 export const store = createStore(allReducers, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
 
+
+// export const store = createStore(allReducers, composeEnhancers(applyMiddleware(initTrackerWithFB)));
+
 /*Отключили на lesson9
 export const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
 */
@@ -55,5 +60,6 @@ sagaMiddleware.run(mySaga);
 
 //Отключаем Persist lesson9, чтобы не конфликтовал
 //с данными приходящими с БД firebase, можно конечно под настроить конфигурацию persist
+
 //но ХЗ как этол сделать
-//export const persistor = persistStore(store)
+export const persistor = persistStore(store)
